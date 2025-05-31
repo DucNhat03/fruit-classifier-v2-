@@ -1,0 +1,477 @@
+{% extends "base.html" %}
+
+{% block title %}AI Demo - Hệ Thống Phân Loại Trái Cây Thông Minh{% endblock %}
+
+{% block content %}
+<!-- Tiêu đề chính -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-lg">
+            <div class="card-header bg-gradient text-white py-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>                        <h2 class="mb-0 fw-bold">
+                            <i class="fas fa-brain me-3"></i>AI Demo - Hệ Thống Phân Loại Trái Cây
+                        </h2>
+                        <p class="mb-0 mt-2 opacity-85 fs-5">Machine Learning Analysis Using Random Forest & SVM Algorithms</p>
+                        <p class="mb-0 mt-1 opacity-75">
+                            <i class="fas fa-graduation-cap me-2"></i>Academic Project - Fruit Classification System
+                        </p>
+                        <p class="mb-0 mt-1 opacity-60" style="font-size: 0.85em;">
+                            <i class="fas fa-copyright me-1"></i>© 2025 Đức Nhật - PTDL2 Course Project
+                        </p>
+                    </div>
+                    <div>
+                        {% if session.role == 'admin' %}
+                            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-light btn-lg">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('user_dashboard') }}" class="btn btn-outline-light btn-lg">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Store
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Thông tin kỹ thuật về hệ thống -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-tree me-2"></i>Random Forest Model
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Ensemble Learning:</strong> Multiple decision trees</li>
+                    <li class="mb-2"><i class="fas fa-shield-alt text-success me-2"></i><strong>Overfitting Protection:</strong> Bootstrap aggregating</li>
+                    <li class="mb-2"><i class="fas fa-chart-bar text-success me-2"></i><strong>Feature Importance:</strong> Automatic ranking</li>
+                    <li class="mb-0"><i class="fas fa-sync text-success me-2"></i><strong>Robust:</strong> Good with noise & missing data</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-project-diagram me-2"></i>SVM Model
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><i class="fas fa-check text-info me-2"></i><strong>RBF Kernel:</strong> Non-linear classification</li>
+                    <li class="mb-2"><i class="fas fa-crosshairs text-info me-2"></i><strong>Maximum Margin:</strong> Optimal separation</li>
+                    <li class="mb-2"><i class="fas fa-vector-square text-info me-2"></i><strong>Support Vectors:</strong> Key data points</li>
+                    <li class="mb-0"><i class="fas fa-balance-scale text-info me-2"></i><strong>Effective:</strong> High-dimensional data</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="fas fa-cogs me-2"></i>Data Processing
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><i class="fas fa-compress-arrows-alt text-warning me-2"></i><strong>PCA:</strong> 6075 → 50 dimensions</li>
+                    <li class="mb-2"><i class="fas fa-balance-scale text-warning me-2"></i><strong>StandardScaler:</strong> Feature normalization</li>
+                    <li class="mb-2"><i class="fas fa-eye text-warning me-2"></i><strong>Color Space:</strong> BGR → RGB conversion</li>
+                    <li class="mb-0"><i class="fas fa-expand-arrows-alt text-warning me-2"></i><strong>Resize:</strong> 45x45 pixels uniform</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dataset Information -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-database me-2"></i>Dataset Information - Fruits-360
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                        <div class="bg-light rounded-3 p-3">
+                            <i class="fas fa-apple-alt text-success" style="font-size: 2rem;"></i>
+                            <h4 class="text-success mt-2 mb-0">15</h4>
+                            <small class="text-muted">Fruit Categories</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="bg-light rounded-3 p-3">
+                            <i class="fas fa-images text-primary" style="font-size: 2rem;"></i>
+                            <h4 class="text-primary mt-2 mb-0">45x45</h4>
+                            <small class="text-muted">Pixel Resolution</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="bg-light rounded-3 p-3">
+                            <i class="fas fa-chart-line text-info" style="font-size: 2rem;"></i>
+                            <h4 class="text-info mt-2 mb-0">6075</h4>
+                            <small class="text-muted">Original Features</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <div class="bg-light rounded-3 p-3">
+                            <i class="fas fa-compress text-warning" style="font-size: 2rem;"></i>
+                            <h4 class="text-warning mt-2 mb-0">50</h4>
+                            <small class="text-muted">PCA Components</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AI Analysis Interface -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-dark text-white py-3">
+                <h4 class="mb-0">
+                    <i class="fas fa-microscope me-3"></i>AI Analysis Interface
+                </h4>
+                <p class="mb-0 mt-1 opacity-75">Upload an image for intelligent fruit classification analysis</p>
+            </div>
+            <div class="card-body p-4">                <form method="POST" enctype="multipart/form-data" id="uploadForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="image" class="form-label fw-bold fs-5">
+                                    <i class="fas fa-upload me-2 text-primary"></i>Select Fruit Image for Analysis
+                                </label>
+                                <input type="file" class="form-control form-control-lg" id="image" name="image" 
+                                       accept="image/*" required>
+                                <div class="form-text mt-2">
+                                    <i class="fas fa-info-circle me-1 text-info"></i>
+                                    <strong>Supported formats:</strong> JPG, PNG, GIF | <strong>Optimal size:</strong> 100x100px or larger
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success btn-lg py-3 fw-bold" id="analyzeBtn">
+                                    <i class="fas fa-brain me-2"></i>Analyze with AI Models
+                                </button>
+                                
+                                <div class="mt-3 p-3 bg-light rounded">
+                                    <h6 class="text-primary mb-2">
+                                        <i class="fas fa-lightbulb me-2"></i>Analysis Process:
+                                    </h6>
+                                    <ol class="mb-0 small">
+                                        <li><strong>Image Preprocessing:</strong> Resize → Color conversion → Normalization</li>
+                                        <li><strong>Feature Extraction:</strong> PCA dimensionality reduction (6075→50)</li>
+                                        <li><strong>Model Inference:</strong> Random Forest + SVM parallel processing</li>
+                                        <li><strong>Result Fusion:</strong> Weighted ensemble prediction</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <div class="bg-gradient-primary rounded-3 p-4 h-100 d-flex align-items-center justify-content-center" 
+                                     id="image-preview" style="min-height: 300px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+                                    <div>
+                                        <i class="fas fa-camera-retro text-muted mb-3" style="font-size: 4rem;"></i>
+                                        <h5 class="text-muted">Image Preview</h5>
+                                        <p class="text-muted mb-0">Upload an image to see preview</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Uploaded Image Display -->
+{% if image_path %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-image me-2"></i>Uploaded Image for Analysis
+                </h5>
+            </div>
+            <div class="card-body text-center">
+                <img src="{{ image_path }}" alt="Uploaded Image" class="img-fluid rounded shadow" 
+                     style="max-height: 400px; border: 3px solid #dee2e6;">
+                <p class="text-muted mt-2 mb-0">
+                    <i class="fas fa-check-circle text-success me-1"></i>
+                    Image successfully uploaded and processed
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- AI Analysis Results -->
+{% if final_label %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow-lg border-0 border-success">
+            <div class="card-header bg-gradient text-white py-4" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h3 class="mb-0 fw-bold">
+                            <i class="fas fa-check-circle me-3"></i>AI Analysis Results
+                        </h3>
+                        <p class="mb-0 mt-2 opacity-85">Machine Learning Classification Complete</p>
+                    </div>
+                    <div class="text-end">
+                        <div class="bg-white bg-opacity-25 rounded p-2">
+                            <h4 class="mb-0 text-white fw-bold">{{ final_confidence }}%</h4>
+                            <small class="text-white opacity-75">Confidence</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <div class="row">
+                    <!-- Main Result -->
+                    <div class="col-md-12 mb-4">
+                        <div class="text-center p-4 bg-light rounded-3">
+                            <i class="fas fa-apple-alt text-success mb-3" style="font-size: 3rem;"></i>
+                            <h2 class="text-success fw-bold mb-2">{{ final_label }}</h2>
+                            <div class="progress mx-auto mb-3" style="width: 300px; height: 20px;">
+                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                                     style="width: {{ final_confidence }}%">
+                                    {{ final_confidence }}% Confidence
+                                </div>
+                            </div>
+                            <p class="text-muted mb-0">
+                                <i class="fas fa-robot me-2"></i>
+                                Classification performed using ensemble of Random Forest and SVM algorithms
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Detailed Model Results -->
+                    <div class="col-md-6">
+                        <div class="card h-100 border-primary">
+                            <div class="card-header bg-primary text-white text-center">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-tree me-2"></i>Random Forest Model
+                                </h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <h4 class="text-primary fw-bold">{{ rf_label }}</h4>
+                                <div class="progress mb-3" style="height: 15px;">
+                                    <div class="progress-bar bg-primary progress-bar-striped" 
+                                         style="width: {{ rf_confidence }}%">
+                                        {{ rf_confidence }}%
+                                    </div>
+                                </div>
+                                <div class="text-muted small">
+                                    <p><i class="fas fa-info-circle me-1"></i><strong>Algorithm:</strong> Ensemble Decision Trees</p>
+                                    <p><i class="fas fa-shield-alt me-1"></i><strong>Advantage:</strong> Robust to overfitting</p>
+                                    <p class="mb-0"><i class="fas fa-chart-bar me-1"></i><strong>Feature:</strong> Handles noise well</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card h-100 border-info">
+                            <div class="card-header bg-info text-white text-center">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-project-diagram me-2"></i>SVM Model
+                                </h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <h4 class="text-info fw-bold">{{ svm_label }}</h4>
+                                <div class="progress mb-3" style="height: 15px;">
+                                    <div class="progress-bar bg-info progress-bar-striped" 
+                                         style="width: {{ svm_confidence }}%">
+                                        {{ svm_confidence }}%
+                                    </div>
+                                </div>
+                                <div class="text-muted small">
+                                    <p><i class="fas fa-info-circle me-1"></i><strong>Kernel:</strong> RBF (Radial Basis Function)</p>
+                                    <p><i class="fas fa-crosshairs me-1"></i><strong>Advantage:</strong> Maximum margin separation</p>
+                                    <p class="mb-0"><i class="fas fa-vector-square me-1"></i><strong>Feature:</strong> Effective in high dimensions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Model Comparison Analysis -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-header">
+                                <h6 class="mb-0 text-dark">
+                                    <i class="fas fa-analytics me-2"></i>Model Performance Analysis
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row text-center">
+                                    <div class="col-md-4">
+                                        <h6 class="text-primary">Agreement Status</h6>
+                                        {% if rf_label == svm_label %}
+                                            <i class="fas fa-check-circle text-success" style="font-size: 2rem;"></i>
+                                            <p class="text-success fw-bold mt-2">Models Agree</p>
+                                            <small class="text-muted">Both models predict: {{ rf_label }}</small>
+                                        {% else %}
+                                            <i class="fas fa-exclamation-triangle text-warning" style="font-size: 2rem;"></i>
+                                            <p class="text-warning fw-bold mt-2">Models Disagree</p>
+                                            <small class="text-muted">RF: {{ rf_label }} | SVM: {{ svm_label }}</small>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="text-info">Confidence Difference</h6>
+                                        <i class="fas fa-chart-line text-info" style="font-size: 2rem;"></i>
+                                        <p class="text-info fw-bold mt-2">{{ "%.1f"|format((rf_confidence - svm_confidence)|abs) }}%</p>
+                                        <small class="text-muted">Absolute difference between models</small>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="text-success">Final Decision</h6>
+                                        <i class="fas fa-balance-scale text-success" style="font-size: 2rem;"></i>
+                                        <p class="text-success fw-bold mt-2">Ensemble Vote</p>
+                                        <small class="text-muted">Weighted average of both models</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Information (if available) -->
+                {% if product_info %}
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card border-info">
+                            <div class="card-header bg-info text-white">
+                                <h6 class="mb-0">
+                                    <i class="fas fa-info-circle me-2"></i>Product Database Information
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <h5 class="text-info mb-2">{{ product_info.name }}</h5>
+                                        <p class="mb-1"><strong>Description:</strong> {{ product_info.description }}</p>
+                                        <p class="mb-1"><strong>Price:</strong> {{ "{:,}".format(product_info.price) }}₫/kg</p>
+                                        <p class="mb-0"><strong>Stock:</strong> {{ product_info.stock }}kg available</p>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        {% if session.role == 'user' and product_info.stock > 0 %}
+                                            <a href="{{ url_for('purchase', product_id=final_label) }}" 
+                                               class="btn btn-success btn-lg">
+                                                <i class="fas fa-shopping-cart me-2"></i>Purchase Now
+                                            </a>
+                                        {% elif product_info.stock == 0 %}
+                                            <button class="btn btn-secondary btn-lg" disabled>
+                                                <i class="fas fa-times me-2"></i>Out of Stock
+                                            </button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="alert alert-warning d-flex align-items-center">
+                            <i class="fas fa-exclamation-triangle me-3" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <h6 class="mb-1">Product Not Found in Database</h6>
+                                <p class="mb-0">The classified fruit "{{ final_label }}" is not currently available in our product catalog.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Technical Notes for Academic Purpose -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-graduation-cap me-2"></i>Technical Implementation Notes
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-primary">
+                            <i class="fas fa-cog me-2"></i>System Architecture
+                        </h6>
+                        <ul class="small text-muted">
+                            <li><strong>Backend:</strong> Flask Python web framework</li>
+                            <li><strong>ML Libraries:</strong> scikit-learn, OpenCV, NumPy</li>
+                            <li><strong>Models:</strong> Random Forest + SVM ensemble</li>
+                            <li><strong>Preprocessing:</strong> PCA + StandardScaler pipeline</li>
+                            <li><strong>Dataset:</strong> Fruits-360 (Kaggle)</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-success">
+                            <i class="fas fa-chart-line me-2"></i>Performance Metrics
+                        </h6>
+                        <ul class="small text-muted">
+                            <li><strong>Accuracy:</strong> Both models trained for high precision</li>
+                            <li><strong>Speed:</strong> Real-time inference (~1-2 seconds)</li>
+                            <li><strong>Robustness:</strong> Ensemble voting for reliability</li>
+                            <li><strong>Scalability:</strong> Easy to add new fruit categories</li>
+                            <li><strong>Validation:</strong> Cross-validation during training</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Image preview functionality
+document.getElementById('image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('image-preview');
+            preview.innerHTML = `
+                <img src="${e.target.result}" alt="Preview" class="img-fluid rounded shadow" 
+                     style="max-height: 280px; border: 3px solid #28a745;">
+            `;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Form submission loading state
+document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    const btn = document.getElementById('analyzeBtn');
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Analyzing...';
+    btn.disabled = true;
+});
+</script>
+{% endblock %}

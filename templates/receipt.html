@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Hóa Đơn - FruitMart AI{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white text-center">
+                <h4 class="mb-0">
+                    <i class="fas fa-check-circle me-2"></i>Thanh Toán Thành Công
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    <i class="fas fa-receipt text-success" style="font-size: 3rem;"></i>
+                    <h5 class="mt-2">Hóa Đơn #{{ receipt.receipt_id }}</h5>
+                    <p class="text-muted">{{ receipt.timestamp }}</p>
+                </div>
+
+                <div class="bg-light rounded-3 p-3 mb-4">
+                    <div class="row mb-2">
+                        <div class="col-6"><strong>Khách hàng:</strong></div>
+                        <div class="col-6">{{ receipt.customer }}</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6"><strong>Sản phẩm:</strong></div>
+                        <div class="col-6">{{ receipt.product_name }}</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6"><strong>Số lượng:</strong></div>
+                        <div class="col-6">{{ receipt.weight }}kg</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-6"><strong>Đơn giá:</strong></div>
+                        <div class="col-6">{{ "{:,}".format(receipt.price_per_kg) }}₫/kg</div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6"><strong>Tổng tiền:</strong></div>
+                        <div class="col-6"><strong class="text-success h5">{{ "{:,}".format(receipt.total_price) }}₫</strong></div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('user_dashboard') }}" class="btn btn-primary">
+                        <i class="fas fa-store me-2"></i>Tiếp Tục Mua Sắm
+                    </a>
+                    <a href="{{ url_for('purchase_history') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-history me-2"></i>Xem Lịch Sử
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

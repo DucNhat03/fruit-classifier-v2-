@@ -1,0 +1,10 @@
+{
+  "product_id": "Watermelon 1",
+  "product_name": "Watermelon 1",
+  "weight": 1.0,
+  "price_per_kg": 20000,
+  "total_price": 20000.0,
+  "customer": "Customer",
+  "timestamp": "2025-05-31 23:20:39",
+  "receipt_id": "e6d05d77"
+}

@@ -1,0 +1,10 @@
+{
+  "product_id": "Apricot 1",
+  "product_name": "Apricot 1",
+  "weight": 1.0,
+  "price_per_kg": 60000.0,
+  "total_price": 60000.0,
+  "customer": "Customer",
+  "timestamp": "2025-05-31 23:31:53",
+  "receipt_id": "f2210623"
+}

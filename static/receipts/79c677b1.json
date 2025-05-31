@@ -1,0 +1,10 @@
+{
+  "product_id": "Tomato 1",
+  "product_name": "Tomato 1",
+  "weight": 5.0,
+  "price_per_kg": 35000,
+  "total_price": 175000.0,
+  "customer": "Customer",
+  "timestamp": "2025-05-31 23:34:36",
+  "receipt_id": "79c677b1"
+}

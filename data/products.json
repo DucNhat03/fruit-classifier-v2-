@@ -1,0 +1,107 @@
+{
+  "Apple 5": {
+    "name": "Apple 5",
+    "price": 35000,
+    "description": "Táo xanh tươi ngon",
+    "stock": 98.0,
+    "image": "./images/apple5.jpg"
+  },
+  "Apple 6": {
+    "name": "Apple 6",
+    "price": 40000,
+    "description": "Táo đỏ cao cấp",
+    "stock": 80,
+    "image": "apple6.jpg"
+  },
+  "Apricot 1": {
+    "name": "Apricot 1",
+    "price": 60000.0,
+    "description": "Mơ tươi ngọt",
+    "stock": 49.0,
+    "image": "apricot1.jpg"
+  },
+  "Avocado 1": {
+    "name": "Avocado 1",
+    "price": 65000,
+    "description": "Bơ chín mềm",
+    "stock": 30,
+    "image": "avocado1.jpg"
+  },
+  "Banana 1": {
+    "name": "Banana 1",
+    "price": 30000,
+    "description": "Chuối già thơm ngon",
+    "stock": 120,
+    "image": "banana1.jpg"
+  },
+  "Blackberrie 1": {
+    "name": "Blackberrie 1",
+    "price": 120000,
+    "description": "Dâu đen tím",
+    "stock": 25,
+    "image": "blackberry1.jpg"
+  },
+  "Blueberry 1": {
+    "name": "Blueberry 1",
+    "price": 150000,
+    "description": "Việt quất nhập khẩu",
+    "stock": 20,
+    "image": "blueberry1.jpg"
+  },
+  "Carrot 1": {
+    "name": "Carrot 1",
+    "price": 25000,
+    "description": "Cà rót tươi",
+    "stock": 90,
+    "image": "carrot1.jpg"
+  },
+  "Cherry 1": {
+    "name": "Cherry 1",
+    "price": 250000,
+    "description": "Cherry đỏ cao cấp",
+    "stock": 15,
+    "image": "cherry1.jpg"
+  },
+  "Lemon 1": {
+    "name": "Lemon 1",
+    "price": 45000,
+    "description": "Chanh vàng chua",
+    "stock": 60,
+    "image": "lemon1.jpg"
+  },
+  "Lychee 1": {
+    "name": "Lychee 1",
+    "price": 85000,
+    "description": "Vải thiều Việt Nam",
+    "stock": 40,
+    "image": "lychee1.jpg"
+  },
+  "Strawberry 1": {
+    "name": "Strawberry 1",
+    "price": 180000,
+    "description": "Dâu tây Đà Lạt",
+    "stock": 35,
+    "image": "strawberry1.jpg"
+  },
+  "Strawberry Wedge 1": {
+    "name": "Strawberry Wedge 1",
+    "price": 190000,
+    "description": "Dâu tây cắt lát",
+    "stock": 30,
+    "image": "strawberry_wedge1.jpg"
+  },
+  "Tomato 1": {
+    "name": "Tomato 1",
+    "price": 35000,
+    "description": "Cà chua bi",
+    "stock": 75.0,
+    "image": "tomato1.jpg"
+  },
+  "Watermelon 1": {
+    "name": "Watermelon 1",
+    "price": 20000,
+    "description": "Dưa hấu đỏ",
+    "stock": 49.0,
+    "image": "watermelon1.jpg"
+  }
+}

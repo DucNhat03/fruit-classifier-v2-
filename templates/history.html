@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử mua hàng - Máy bán trái cây tự động</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Lịch sử mua hàng</h2>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                {% if receipts %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Mã hóa đơn</th>
+                                <th>Thời gian</th>
+                                <th>Loại trái cây</th>
+                                <th>Khối lượng (kg)</th>
+                                <th class="text-end">Đơn giá (VND)</th>
+                                <th class="text-end">Tổng tiền (VND)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for receipt in receipts %}
+                            <tr>
+                                <td>{{ receipt.receipt_id }}</td>
+                                <td>{{ receipt.timestamp }}</td>
+                                <td>{{ receipt.fruit }}</td>
+                                <td>{{ receipt.weight }}</td>
+                                <td class="text-end">{{ "{:,.0f}".format(receipt.price_per_kg) }}</td>
+                                <td class="text-end">{{ "{:,.0f}".format(receipt.total_price) }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    Chưa có lịch sử mua hàng nào.
+                </div>
+                {% endif %}
+                
+                <div class="text-center mt-4">
+                    <a href="/" class="btn btn-primary">Quay lại trang chủ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

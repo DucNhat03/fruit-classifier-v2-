@@ -1,0 +1,10 @@
+{
+  "product_id": "Apple 5",
+  "product_name": "Apple 5",
+  "weight": 1.0,
+  "price_per_kg": 35000,
+  "total_price": 35000.0,
+  "customer": "Customer",
+  "timestamp": "2025-05-31 23:19:59",
+  "receipt_id": "4ee221a8"
+}

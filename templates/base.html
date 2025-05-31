@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hệ Thống Máy Bán Trái Cây Thông Minh{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+            --danger-gradient: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            --warning-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 12px 40px rgba(0, 0, 0, 0.15);
+            --shadow-hard: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 118, 117, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Floating particles animation */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 40px 60px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(2px 2px at 90px 40px, rgba(255,255,255,0.15), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.2), transparent);
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: float 20s infinite linear;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-200px); }
+        }        
+        /* Enhanced Navbar with glass morphism */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(20px) saturate(200%);
+            -webkit-backdrop-filter: blur(20px) saturate(200%);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: var(--shadow-medium);
+            transform: translateY(0);
+        }
+        
+        .navbar-brand {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .navbar-brand::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: width 0.4s ease;
+        }
+        
+        .navbar-brand:hover::before {
+            width: 100%;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05) translateY(-2px);
+        }
+        
+        .navbar-brand .copyright-text {
+            font-size: 0.6rem;
+            opacity: 0.8;
+            font-weight: 500;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            background: var(--primary-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Glass morphism cards */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(200%);
+            -webkit-backdrop-filter: blur(20px) saturate(200%);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .card:hover::before {
+            left: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-hard);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Advanced button styles */
+        .btn {
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: var(--primary-gradient);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-success {
+            background: var(--success-gradient);
+            box-shadow: 0 4px 15px rgba(86, 171, 47, 0.4);
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(86, 171, 47, 0.6);
+        }
+        
+        .btn-danger {
+            background: var(--danger-gradient);
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.6);
+        }
+        
+        .btn-warning {
+            background: var(--warning-gradient);
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+        }
+        
+        .btn-warning:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(240, 147, 251, 0.6);
+        }        
+        /* Enhanced alerts with glass morphism */
+        .alert {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            box-shadow: var(--shadow-soft);
+            color: #2c3e50;
+            animation: slideInDown 0.5s ease-out;
+        }
+        
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Enhanced form controls */
+        .form-control {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 12px 20px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        /* Professional footer with enhanced effects */
+        .footer-professional {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer-professional::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(102, 126, 234, 0.8), 
+                rgba(240, 147, 251, 0.8),
+                rgba(102, 126, 234, 0.8), 
+                transparent
+            );
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .footer-professional::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(240, 147, 251, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .footer-divider {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            margin: 2rem 0;
+        }
+        
+        /* Enhanced dropdown menus */
+        .dropdown-menu {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(200%);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-medium);
+            padding: 10px;
+            margin-top: 10px;
+        }
+        
+        .dropdown-item {
+            border-radius: 12px;
+            margin: 3px 0;
+            padding: 10px 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .dropdown-item:hover::before {
+            left: 0;
+        }
+        
+        .dropdown-item:hover {
+            color: white;
+            transform: translateX(8px) scale(1.02);
+        }
+        
+        /* Glowing text effects */
+        .text-primary {
+            background: var(--primary-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.3));
+        }
+        
+        .footer-professional h6 {
+            position: relative;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .footer-professional h6::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 3px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+            }
+            to {
+                box-shadow: 0 0 15px rgba(102, 126, 234, 0.8);
+            }
+        }
+        
+        /* Hover effects for footer items */
+        .footer-professional ul li {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .footer-professional ul li:hover {
+            transform: translateX(8px) scale(1.05);
+            color: #667eea;
+        }
+        
+        .footer-professional ul li:hover i {
+            transform: scale(1.2);
+            color: #667eea;
+        }
+        
+        /* Loading animation for page transitions */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .page-transition.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--primary-gradient);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+        
+        /* Responsive enhancements */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+            
+            .navbar-brand .copyright-text {
+                font-size: 0.5rem;
+            }
+            
+            .card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll progress indicator -->
+    <div class="scroll-indicator"></div>
+    
+    <!-- Page transition overlay -->
+    <div class="page-transition">
+        <div class="text-center text-white">
+            <div class="spinner-border text-light mb-3" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <h5>Loading...</h5>
+        </div>
+    </div><nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary d-flex align-items-center" href="{{ url_for('index') }}">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-apple-alt me-3 fs-4"></i>
+                    <div>
+                        <div class="d-flex align-items-baseline">
+                            <span>FruitMart AI</span>
+                        </div>
+                        <div class="copyright-text text-muted">Machine Learning Classification System</div>
+                    </div>
+                </div>
+            </a>
+            
+            {% if session.user_id %}
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-dark fw-semibold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i>{{ session.full_name }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% if session.role == 'admin' %}
+                            <li><a class="dropdown-item" href="{{ url_for('admin_dashboard') }}"><i class="fas fa-tachometer-alt me-2"></i>Dashboard Admin</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('add_product') }}"><i class="fas fa-plus me-2"></i>Thêm Sản Phẩm</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('sales_history') }}"><i class="fas fa-chart-line me-2"></i>Lịch Sử Bán Hàng</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('ai_recognition') }}"><i class="fas fa-brain me-2"></i>AI Demo</a></li>
+                        {% else %}
+                            <li><a class="dropdown-item" href="{{ url_for('user_dashboard') }}"><i class="fas fa-store me-2"></i>Cửa Hàng</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('purchase_history') }}"><i class="fas fa-history me-2"></i>Lịch Sử Mua Hàng</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('ai_recognition') }}"><i class="fas fa-brain me-2"></i>AI Demo</a></li>
+                        {% endif %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt me-2"></i>Đăng Xuất</a></li>
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container mt-5 pt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                        <i class="fas fa-{{ 'exclamation-circle' if category == 'error' else 'check-circle' if category == 'success' else 'info-circle' }} me-2"></i>
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}        {% block content %}{% endblock %}
+    </div>    <!-- Footer -->
+    <footer class="footer-professional text-light mt-5 py-5">
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-apple-alt me-3 fs-3 text-primary"></i>
+                        <div>
+                            <h5 class="mb-0 fw-bold">FruitMart AI</h5>
+                            <small class="text-muted">© 2025 Đức Nhật</small>
+                        </div>
+                    </div>
+                    <p class="mb-2 opacity-75">Hệ thống phân loại trái cây thông minh sử dụng Machine Learning với thuật toán Random Forest và SVM.</p>
+                    <div class="d-flex align-items-center text-primary">
+                        <i class="fas fa-brain me-2"></i>
+                        <small>AI-Powered Classification System</small>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h6 class="fw-bold mb-3 text-primary">Thông Tin Dự Án</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-graduation-cap me-2 text-primary"></i>
+                            <small>PTDL2 - Pattern Recognition</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-users me-2 text-primary"></i>
+                            <small>NHOM3DM</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-university me-2 text-primary"></i>
+                            <small>DHKTPM17ATT</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-calendar me-2 text-primary"></i>
+                            <small>Academic Year 2025</small>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h6 class="fw-bold mb-3 text-primary">Công Nghệ</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fab fa-python me-2 text-warning"></i>
+                            <small>Python & Flask</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-robot me-2 text-success"></i>
+                            <small>scikit-learn</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-eye me-2 text-info"></i>
+                            <small>OpenCV</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-chart-line me-2 text-danger"></i>
+                            <small>Random Forest & SVM</small>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="fw-bold mb-3 text-primary">Tính Năng</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <i class="fas fa-camera me-2 text-primary"></i>
+                            <small>Image Upload</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-brain me-2 text-primary"></i>
+                            <small>AI Classification</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-chart-bar me-2 text-primary"></i>
+                            <small>Model Comparison</small>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-shopping-cart me-2 text-primary"></i>
+                            <small>E-commerce</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="footer-divider my-4">
+            
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-code me-2 text-primary"></i>
+                        <span class="opacity-75">Developed with</span>
+                        <i class="fas fa-heart text-danger mx-2"></i>
+                        <span class="opacity-75">for academic research</span>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                    <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-md-end">
+                        <div class="text-center text-md-end">
+                            <div class="fw-bold text-primary fs-6">© 2025 Đức Nhật</div>
+                            <small class="opacity-75">All rights reserved</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Enhanced interactions script -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth reveal animation for footer elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Apply animation to footer elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerElements = document.querySelectorAll('.footer-professional .col-lg-4, .footer-professional .col-lg-3, .footer-professional .col-lg-2');
+            footerElements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                observer.observe(el);
+            });
+            
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+        
+        // Add typing effect to brand subtitle
+        document.addEventListener('DOMContentLoaded', function() {
+            const subtitle = document.querySelector('.copyright-text');
+            if (subtitle && subtitle.textContent.includes('Machine Learning')) {
+                const text = subtitle.textContent;
+                subtitle.textContent = '';
+                subtitle.style.opacity = '1';
+                
+                let i = 0;
+                const typeWriter = () => {
+                    if (i < text.length) {
+                        subtitle.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 50);
+                    }
+                };
+                
+                setTimeout(typeWriter, 1000);
+            }
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
