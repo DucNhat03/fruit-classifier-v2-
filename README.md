@@ -462,6 +462,6 @@ This project is developed for academic purposes as part of a university course. 
 
 *Developed with ❤️ for academic research and practical learning*
 
-**© 2025 Đức Nhật - NHOM3DM - DHKTPM17ATT - PTDL2 Course Project**
+**© 2025 Đức Nhật - PTDL2 Course Project**
 
 </div>
